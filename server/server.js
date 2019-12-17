@@ -62,8 +62,6 @@ const upload = multer({
     },
 });
 
-app.use(express.static('./public')); //Serves resources from public folder
-
 // HTTP GET method to /download/ view
 app.get('/download/', function(req, res) {
     var passedVariable = req.query.file;
@@ -77,7 +75,7 @@ app.get('/download/', function(req, res) {
 
 // HTTP GET method to main view
 app.get('/', function(req, res) {
-    res.render("main");
+    res.render("empty");
 });
 
 // HTTP GET method to /failure view
@@ -129,6 +127,8 @@ app.post('/uploadToAWS', upload.array('videoFile',1), (req, res, next) => {
         });
     }
 });
+
+app.use(express.static('./public')); //Serves resources from public folder
 
 const server = app.listen(80, function(){
     // The server object listens on port 80
